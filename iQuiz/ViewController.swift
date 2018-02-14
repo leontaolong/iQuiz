@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestion()
+        quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestions()
         categoryTableView.dataSource = self
         categoryTableView.delegate = self
         populateData()

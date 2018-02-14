@@ -118,6 +118,9 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <state key="normal" title="A. Answer"/>
+                                <connections>
+                                    <action selector="asPressed:" destination="JCh-aL-qZ6" eventType="touchUpInside" id="qIk-Xb-IUN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oux-vb-9r7">
                                 <rect key="frame" x="110" y="309" width="155" height="39"/>
@@ -126,6 +129,9 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="B. Answer"/>
+                                <connections>
+                                    <action selector="asPressed:" destination="JCh-aL-qZ6" eventType="touchUpInside" id="Ab0-nR-7kf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6G-wr-cuP">
                                 <rect key="frame" x="110" y="354" width="155" height="39"/>
@@ -134,6 +140,9 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="C. Answer"/>
+                                <connections>
+                                    <action selector="asPressed:" destination="JCh-aL-qZ6" eventType="touchUpInside" id="g77-e0-uGA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-uK-mGs">
                                 <rect key="frame" x="110" y="399" width="155" height="39"/>
@@ -142,17 +151,29 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="D. Answer"/>
+                                <connections>
+                                    <action selector="asPressed:" destination="JCh-aL-qZ6" eventType="touchUpInside" id="Nq5-Nz-caE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-Bi-92u">
                                 <rect key="frame" x="110" y="555" width="155" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitPressed:" destination="JCh-aL-qZ6" eventType="touchUpInside" id="acM-ZI-HQP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="kPI-00-ngq"/>
                     </view>
+                    <connections>
+                        <outlet property="as1" destination="9pM-2x-azc" id="iHp-Lc-ewF"/>
+                        <outlet property="as2" destination="Oux-vb-9r7" id="2zB-64-hLM"/>
+                        <outlet property="as3" destination="w6G-wr-cuP" id="Sdb-Sv-lZy"/>
+                        <outlet property="as4" destination="HXu-uK-mGs" id="XZl-Ot-YBX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCW-Y0-Vld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -161,7 +182,7 @@
         <!--Answer View Controller-->
         <scene sceneID="oVX-kD-3Sm">
             <objects>
-                <viewController id="Zeg-8F-GYe" customClass="AnswerViewController" customModule="iQuiz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnswerViewController" id="Zeg-8F-GYe" customClass="AnswerViewController" customModule="iQuiz" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ebN-NK-gcx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

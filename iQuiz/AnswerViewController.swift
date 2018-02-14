@@ -9,11 +9,11 @@
 import UIKit
 
 class AnswerViewController: UIViewController {
-    var quizQuestions: [QuizQuestion]? = nil
+    var quizProcess: Int = 0
+    var quizQuestion: QuizQuestion? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestion()
 
         // Do any additional setup after loading the view.
     }

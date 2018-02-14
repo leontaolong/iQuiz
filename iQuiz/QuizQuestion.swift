@@ -11,10 +11,10 @@ import Foundation
 class QuizQuestion {
     var question: String
     var options: [String]
-    var answer: String
+    var answer: Int
     var correct: Bool
     
-    init(_ question: String, _ options: [String], _ answer: String, _ correct: Bool) {
+    init(_ question: String, _ options: [String], _ answer: Int, _ correct: Bool) {
         self.question = question
         self.options = options
         self.answer = answer
@@ -23,14 +23,14 @@ class QuizQuestion {
 }
 
 class QuizQuestionRepository {
-    private let quizQuestions: [QuizQuestion] = [
-        QuizQuestion("Question 1: How many people are on the planet Earth?", ["A. Answer", "B. Answer", "C. Answer", "D. Answer"], "A. Answer", false),
-        QuizQuestion("Question 2: How many people are on the planet Moon?", ["A. Answer", "B. Answer", "C. Answer", "D. Answer"], "A. Answer", false)
+    private var quizQuestions: [QuizQuestion] = [
+        QuizQuestion("Question 1: How many people are on the planet Earth?", ["A. Answer", "B. Answer", "C. Answer", "D. Answer"], 2, false),
+        QuizQuestion("Question 2: How many people are on the planet Moon?", ["A. Answer", "B. Answer", "C. Answer", "D. Answer"], 3, false)
     ]
     
     static let shared = QuizQuestionRepository()
     
-    func getQuizQuestion() -> [QuizQuestion] {
+    func getQuizQuestions() -> [QuizQuestion] {
         return quizQuestions
     }
     func getQuizQuestion(id: Int) -> QuizQuestion {
@@ -38,14 +38,12 @@ class QuizQuestionRepository {
     }
     
     func deleteQuizQuestion(id: Int) {
-        // remove from the array
     }
     
-    func addQuizQuestion(name: QuizQuestion) {
-        // add to the array
+    func addQuizQuestion(_ quizQuestion: QuizQuestion) {
     }
     
-    func updateQuizQuestion(name: QuizQuestion) {
-        // send the update back to the server
+    func updateQuizQuestion(_ index: Int, _ quizQuestion: QuizQuestion) {
+        quizQuestions[index] = quizQuestion
     }
 }
