@@ -12,9 +12,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var categoryTableView: UITableView!
     private var tableData: [QuizCategory] = []
+    var quizQuestions: [QuizQuestion]? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestion()
         categoryTableView.dataSource = self
         categoryTableView.delegate = self
         populateData()
@@ -23,7 +27,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func settingsPressed(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
-        
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
@@ -53,6 +56,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let marvel = QuizCategory("marvel", "Marvel Super Heroes", "It's time to test out how much you know about Marvel Sper Heroes")
         let science = QuizCategory("science", "Science", "It's time to test out if your science is still in elementary school")
         tableData += [math, marvel, science]
+    }
+    
+    func goToQuestionView() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
+        vc.quizProcess = 0
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
