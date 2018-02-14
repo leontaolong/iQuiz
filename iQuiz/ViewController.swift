@@ -51,6 +51,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goToQuestionView()
+    }
+    
     private func populateData() {
         let math = QuizCategory("math", "Mathematics", "It's time to test out if your math is still in elementary school")
         let marvel = QuizCategory("marvel", "Marvel Super Heroes", "It's time to test out how much you know about Marvel Sper Heroes")
