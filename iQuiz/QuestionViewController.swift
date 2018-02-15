@@ -18,10 +18,12 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var as2: UIButton!
     @IBOutlet weak var as3: UIButton!
     @IBOutlet weak var as4: UIButton!
+    @IBOutlet weak var questionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestions()
+        print(quizProcess)
         quizQuestion = quizQuestions?[quizProcess]
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipedLeft(_:)))
@@ -32,21 +34,29 @@ class QuestionViewController: UIViewController {
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(swipeRight)
         
+        questionLabel.text = quizQuestion?.question
         // Do any additional setup after loading the view.
     }
     
+
     @objc func swipedLeft(_ gesture: UIGestureRecognizer) {
-        goToHome()
+        goToAnswer()
     }
     
     @objc func swipedRight(_ gesture: UIGestureRecognizer) {
-        goToAnswer()
+        goToHome()
     }
     
     @IBAction func asPressed(_ sender: UIButton) {
         selectedAnswer = (sender.titleLabel?.text)!
+        let options = [as1, as2, as3, as4]
+        options.forEach{btn in btn?.backgroundColor = UIColor.darkGray}
+        sender.backgroundColor = UIColor.blue
+        
         if selectedAnswer == quizQuestion?.options[(quizQuestion?.answer)!] {
             quizQuestion?.correct = true
+        } else {
+            quizQuestion?.correct = false
         }
     }
     
@@ -55,16 +65,34 @@ class QuestionViewController: UIViewController {
         goToAnswer()
     }
     
+    @IBAction func backPressed(_ sender: UIBarButtonItem) {
+        goToHome()
+    }
+    
     func goToHome() {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        let alertController = UIAlertController(title: "Warming", message: "Are you sure that you want to quit the quiz and go back to Home?", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let quitAction = UIAlertAction(title: "Quit", style: .destructive, handler: {(alert: UIAlertAction!) in
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            self.navigationController?.pushViewController(vc, animated: false)
+        })
+        
+        alertController.addAction(defaultAction)
+        alertController.addAction(quitAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     func goToAnswer() {
-        if selectedAnswer != "" {
+        
+        if selectedAnswer == "" {
+            let alertController = UIAlertController(title: "Warming", message: "You must select an answer to continue the quiz.", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+        } else {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
             vc.quizProcess = quizProcess
-            vc.quizQuestion = quizQuestion
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

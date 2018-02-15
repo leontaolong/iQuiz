@@ -23,6 +23,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         categoryTableView.delegate = self
         populateData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
 
     
     @IBAction func settingsPressed(_ sender: UIBarButtonItem) {
