@@ -23,6 +23,14 @@ class FinishedViewController: UIViewController {
         quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestions()
         getScore()
         
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipedLeft(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.swipedRight(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
         scoreLabel.text = "\(correct) / \(total)"
         if Double(correct) / Double(total) > 0.8 {
             descLabel.text = "Perfect!"
@@ -31,6 +39,14 @@ class FinishedViewController: UIViewController {
         }
         
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func swipedLeft(_ gesture: UIGestureRecognizer) {
+        goToHome()
+    }
+    
+    @objc func swipedRight(_ gesture: UIGestureRecognizer) {
+        goToHome()
     }
     
     private func getScore() {
