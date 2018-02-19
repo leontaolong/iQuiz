@@ -13,17 +13,19 @@ class QuestionViewController: UIViewController {
     var quizProcess: Int = 0
     var quizQuestion: QuizQuestion? = nil
     var selectedAnswer: String = ""
-
+    var options:[UIButton?] = []
+    
     @IBOutlet weak var as1: UIButton!
     @IBOutlet weak var as2: UIButton!
     @IBOutlet weak var as3: UIButton!
     @IBOutlet weak var as4: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        options = [as1, as2, as3, as4]
         quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestions()
-        print(quizProcess)
         quizQuestion = quizQuestions?[quizProcess]
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipedLeft(_:)))
@@ -35,7 +37,9 @@ class QuestionViewController: UIViewController {
         self.view.addGestureRecognizer(swipeRight)
         
         questionLabel.text = quizQuestion?.question
-        // Do any additional setup after loading the view.
+        for index in 0...3 {
+            options[index]?.setTitle(quizQuestion?.options[index], for: .normal)
+        }
     }
     
 
@@ -49,7 +53,6 @@ class QuestionViewController: UIViewController {
     
     @IBAction func asPressed(_ sender: UIButton) {
         selectedAnswer = (sender.titleLabel?.text)!
-        let options = [as1, as2, as3, as4]
         options.forEach{btn in btn?.backgroundColor = UIColor.darkGray}
         sender.backgroundColor = UIColor.blue
         
@@ -101,16 +104,4 @@ class QuestionViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

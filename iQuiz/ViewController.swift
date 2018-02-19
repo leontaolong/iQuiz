@@ -12,16 +12,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var categoryTableView: UITableView!
     private var tableData: [QuizCategory] = []
-    var quizQuestions: [QuizQuestion]? = nil
+    var defaultUrl: String = "https://tednewardsandbox.site44.com/questions.json"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        quizQuestions = UIApplication.shared.quizQuestionRepository.getQuizQuestions()
+        fetchData(defaultUrl)
+        UIApplication.shared.quizQuestionRepository.deserializaData()
+        tableData = UIApplication.shared.quizQuestionRepository.getQuizCategories()
+        
         categoryTableView.dataSource = self
         categoryTableView.delegate = self
-        populateData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,20 +60,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIApplication.shared.quizQuestionRepository.setCategory(tableData[indexPath.row])
         goToQuestionView()
-    }
-    
-    private func populateData() {
-        let math = QuizCategory("math", "Mathematics", "It's time to test out if your math is still in elementary school")
-        let marvel = QuizCategory("marvel", "Marvel Super Heroes", "It's time to test out how much you know about Marvel Sper Heroes")
-        let science = QuizCategory("science", "Science", "It's time to test out if your science is still in elementary school")
-        tableData += [math, marvel, science]
     }
     
     func goToQuestionView() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
         vc.quizProcess = 0
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func fetchData(_ url: String ) {
+        let url = URL(string: url)
+        if (url != nil) {
+            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                if error == nil { // fetch online data if possible
+                    let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [Dictionary<String, Any>]
+                    UserDefaults.standard.setValue(json, forKey: "quizData")
+                }
+            }.resume()
+        }
     }
 
     override func didReceiveMemoryWarning() {
