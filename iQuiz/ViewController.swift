@@ -50,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Refresh Time Interval"
+            textField.placeholder = "Refresh Time Interval in seconds"
         }
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -59,7 +59,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let inputUrl = alertController.textFields![0].text!
             let inputInterval = alertController.textFields![1].text!
             UserDefaults.standard.set(inputUrl, forKey: "data_url")
-            UserDefaults.standard.set(inputInterval, forKey: "refresh_interval")
+            if (inputInterval != "") {
+                UserDefaults.standard.set(inputInterval, forKey: "refresh_interval")
+            }
             self.fetchData(inputUrl)
             self.startTimer()
         }))
