@@ -52,17 +52,19 @@ class QuizQuestionRepository {
     static let shared = QuizQuestionRepository()
     
     func deserializaData() {
-        let json = UserDefaults.standard.array(forKey: "quizData")! as! [Dictionary<String, Any>]
-        for item in json {
-            let category = QuizCategory(item["title"] as! String, item["title"] as! String, item["desc"] as! String)
-            var questions:[QuizQuestion] = []
-            let questionsData = (item["questions"] as! NSArray) as Array
-            for questionData in questionsData {
-                var question = questionData as! Dictionary<String, Any>
-                let quizQustion = QuizQuestion(question["text"] as! String, question["answers"] as! [String], Int(question["answer"] as! String)!, false)
-                questions.append(quizQustion)
+        if let jsonData = UserDefaults.standard.array(forKey: "quizData") {
+        let json = jsonData as! [Dictionary<String, AnyObject>]
+            for item in json {
+                let category = QuizCategory(item["title"] as! String, item["title"] as! String, item["desc"] as! String)
+                var questions:[QuizQuestion] = []
+                let questionsData = (item["questions"] as! NSArray) as Array
+                for questionData in questionsData {
+                    var question = questionData as! Dictionary<String, Any>
+                    let quizQustion = QuizQuestion(question["text"] as! String, question["answers"] as! [String], Int(question["answer"] as! String)!, false)
+                    questions.append(quizQustion)
+                }
+                quizData[category] = questions
             }
-            quizData[category] = questions
         }
     }
     
